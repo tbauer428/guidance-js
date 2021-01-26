@@ -38,11 +38,12 @@ const degrees = (x) => {
   return (x * 180) / Math.PI;
 };
 
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 const findBearing = (pointA, pointB) => {
   latitudinalDiff = findLatitudinalDifference(pointB.lo, pointA.lo);
-
-  console.log(pointB.la);
-  console.log(latitudinalDiff);
 
   x = Math.cos(radians(pointB.la)) * Math.sin(radians(latitudinalDiff));
 
@@ -52,12 +53,11 @@ const findBearing = (pointA, pointB) => {
       Math.cos(radians(pointB.la)) *
       Math.cos(radians(latitudinalDiff));
 
-  console.log(`x: ${x}`);
-  console.log(`x: ${y}`);
-
   bearing = degrees(Math.atan2(x, y));
 
-  console.log(bearing);
+  setInterval(() => {
+    console.log(bearing);
+  }, 2000);
 };
 
 findBearing(pointA, pointB);
